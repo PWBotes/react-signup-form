@@ -26,51 +26,36 @@ function App() {
   const [validConsent, setValidConsent]=useState(false);
   const [canSubmit, setCanSubmit]=useState(false);
   const [disabledSubmit, setDisabledSubmit] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadedData, setLoadedData] = useState();
+  const fakeRequest = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(
+          'Thank you '+validFirstName+' for signing up.'
+        );
+      }, 2000);
+    });
+  };
+  const submitHandler = async () => {
+    setIsLoading(true);
+    const result = await fakeRequest();
+    setLoadedData(result);
+    setIsLoading(false);
+  };
+
+  const isValidEmail=(email)=> {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+
   const Validate=()=>{
-    if(validFirstName.length>0){
-      console.log(validFirstName);
-    }
-    else{
-    }
 
-    if(validLastName.length>0){
-     console.log(validLastName);
-    }
-    else{
-     console.log("Last Name Empty");
-    }
-
-    if(validPhoneNumber.length>0){
-      console.log(validPhoneNumber);
-    }
-    else{
-      console.log("Contact Number Empty");
-    }
-
-    if(validEmail.length>0){
-      console.log(validEmail);
-    }
-    else{
-     console.log("Email Empty");
-    }
-
-    console.log(validGender);
-
-    if(validConsent===true){
-      console.log(validConsent);
-    }
-    else{
-      console.log(validConsent);
-      console.log("Consent required");
-    }
-
-    if(validFirstName.length>0&&validLastName.length>0&&validPhoneNumber.length>0&&validEmail.length>0&&validConsent===true){
+    if(validFirstName.length>0&&validLastName.length>0&&validPhoneNumber.length>0&&validEmail.length>0&&isValidEmail(validEmail)&&validConsent===true&&!isNaN(validPhoneNumber)){
       setDisabledSubmit(false);
     }else{
       setDisabledSubmit(true);
     }
     
-    //console.log("CANSUBMIT: "+canSubmit);
    
     
   }
@@ -100,23 +85,32 @@ function App() {
   }
 
   return (
+    <div>
+    <div style={{ display: isLoading ? 'flex' : 'none' }} className='modal'>
+        <div className='modal-content'>
+          <div className='loader'></div>
+          <div className='modal-text'>Signing Up...</div>
+        </div>
+      </div>
     <div className="App">
-      <Card>
-        <Header title="Sign Up"></Header>
+    {!loadedData &&<Card>
+        <Header title="Signup"></Header>
         <TextInput validateValue={SaveFirstName} placeholder="First name"></TextInput>
         <TextInput validateValue={SaveLastName} placeholder="Last name"></TextInput>
         <PhoneInput validateValue={SaveContactNumber}t></PhoneInput>
         <EmailInput validateValue={SaveEmail}></EmailInput>
         <RadioInput validateValue={SaveGender} question ="Gender:"></RadioInput>
         <TickBox validateValue={SaveConsent} options="I hereby consent to be contacted"></TickBox>
-        <SubmitButton buttonState={disabledSubmit} onClickValidate={Validate} buttonText="Sign Up"></SubmitButton>
+        <SubmitButton buttonState={disabledSubmit} onClickValidate={submitHandler} buttonText="Signup"></SubmitButton>
         <br/><br/>
         <small>{!validFirstName ? 'First Name Required' : ''}</small>
         <br/><small>{!validLastName ? 'Last Name Required' : ''}</small>
-        <br/><small>{!validPhoneNumber ? 'Contact Number Required' : ''}</small>
-        <br/><small>{!validEmail ? 'Email Invalid' : ''}</small>
+        <br/><small>{!validPhoneNumber ? 'Valid Contact Number Required' : ''}</small>
+        <br/><small>{!isValidEmail(validEmail) ? 'Valid Email Required' : ''}</small>
         <br/><small>{!validConsent ? 'Consent Required' : ''}</small>
-      </Card>
+      </Card>}
+      {loadedData && <Card><p>{loadedData}</p></Card>}
+    </div>
     </div>
   );
 }
