@@ -1,0 +1,12 @@
+.RadioQuestion{
+    padding-top:10px;
+}
+.RadioOption{
+display:block;
+text-align: left;
+position:relative;
+text-align: left;
+}
+label{
+    padding-left:10px;
+}
