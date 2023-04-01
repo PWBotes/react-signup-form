@@ -13,7 +13,7 @@ const PhoneInput = props =>{
         setEnteredPhoneNumber(event.target.value);
     };
 
-return <input onChange={CheckEmpty}  className="PhoneInput" placeholder="Contact Number" style={{'borderColor':` ${enteredPhoneNumber.length ===0 ? 'red' : 'green'}`}}>
+return <input type="number" onChange={CheckEmpty}  className="PhoneInput" placeholder="Contact number" style={{'borderColor':` ${enteredPhoneNumber.length ===0 ? 'red' : 'green'}`}}>
     
 </input>
 };
