@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import "./PhoneInput.css"
-
+//email component with validation and color changes to reflect valid input
 const PhoneInput = props =>{
 
     const [enteredPhoneNumber, setEnteredPhoneNumber]=useState('');
