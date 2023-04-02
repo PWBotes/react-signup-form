@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import "./RadioInput.css"
-
+//radio buttons component
 const RadioInput = props =>{
 
     const [enteredRadio, setEnteredRadio]=useState('male');

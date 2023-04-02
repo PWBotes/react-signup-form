@@ -9,15 +9,8 @@ import TickBox from './components/TickBox';
 import SubmitButton from './components/SubmitButton';
 import React, {useState} from 'react';
 
-
-
-
-
-
-
-
 function App() {
-
+//State variables for validation and Loading screen Modal
   const [validFirstName, setValidFirstName]=useState("");
   const [validLastName, setValidLastName]=useState("");
   const [validPhoneNumber, setValidPhoneNumber]=useState("");
@@ -28,6 +21,7 @@ function App() {
   const [disabledSubmit, setDisabledSubmit] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [loadedData, setLoadedData] = useState();
+  //function to display fake returned results and thank you screen
   const fakeRequest = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -37,17 +31,18 @@ function App() {
       }, 2000);
     });
   };
+//function to mock form submission
   const submitHandler = async () => {
     setIsLoading(true);
     const result = await fakeRequest();
     setLoadedData(result);
     setIsLoading(false);
   };
-
+//function to check email syntax
   const isValidEmail=(email)=> {
     return /\S+@\S+\.\S+/.test(email);
   }
-
+//formvalidation function to disble submit button
   const Validate=()=>{
 
     if(validFirstName.length>0&&validLastName.length>0&&validPhoneNumber.length>0&&validEmail.length>0&&isValidEmail(validEmail)&&validConsent===true&&!isNaN(validPhoneNumber)){
@@ -57,7 +52,7 @@ function App() {
     }
     
    
-    
+//saves components values onChange for validation    
   }
   const SaveFirstName=(value)=>{
     setValidFirstName(value);
@@ -83,7 +78,8 @@ function App() {
     setValidConsent(value);
     Validate();
   }
-
+  //components are created to be customizable with props so they can be reusable
+  //structure is loading modal first, then components,then form validation error messages
   return (
     <div>
     <div style={{ display: isLoading ? 'flex' : 'none' }} className='modal'>

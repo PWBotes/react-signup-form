@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import "./TickBox.css"
-
+//tickbox component with validation and color changes to reflect state
 const TickBox = props =>{
 
     const [enteredChoice, setEnteredChoice]=useState('');

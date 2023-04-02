@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import "./TextInput.css"
-
+//generic text input component with validation and color changes to reflect valid input, configurable with props
 const TextInput = props =>{
 
 const [enteredFisrtName, setEnteredFirstName]=useState('');

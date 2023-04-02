@@ -2,7 +2,7 @@ import React from 'react';
 import "./SubmitButton.css"
 
 
-
+//button component which can be disabled if validation doesn't pass, configurable text with props
 const SubmitButton = props =>{
 
     
